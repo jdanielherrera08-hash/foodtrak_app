@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CalculadoraScreen extends StatefulWidget {
-  const CalculadoraScreen({super.key});
+  // 1. Esto permite que la calculadora le devuelva la meta al main
+  final Function(double nuevaMeta) onMetaCalculada;
 
+  // 2. El constructor que acepta la función
+  const CalculadoraScreen({super.key, required this.onMetaCalculada});
   @override
   State<CalculadoraScreen> createState() => _CalculadoraScreenState();
 }

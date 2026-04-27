@@ -6,10 +6,10 @@ class DietasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF6E3), // Fondo beige suave
+      backgroundColor: const Color(0xFFF2E8D3), // Fondo color arena
       appBar: AppBar(
         title: const Text("Planes de Alimentación"),
-        backgroundColor: const Color(0xFF4A90E2),
+        backgroundColor: const Color(0xFF8A9A5B), // Título en verde oliva
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -33,26 +33,19 @@ class DietasScreen extends StatelessWidget {
               "Principiantes",
             ],
             planComidas: {
-              "Desayuno (400-500 kcal)": [
-                "Avena con frutas",
-                "Yogur griego",
-                "1 plátano",
-              ],
-              "Almuerzo (600-700 kcal)": [
-                "Pollo a la plancha",
-                "Arroz integral",
-                "Ensalada",
-              ],
-              "Cena (500-600 kcal)": [
-                "Salmón al horno",
-                "Batata asada",
-                "Infusión",
-              ],
+              "Desayuno (400-500 kcal)":
+                  "Avena con leche y frutos rojos (1 taza), Yogur griego (125g), Semillas de chía/linaza, Té o café.",
+              "Media Mañana": "Manzana, Puñado de almendras (25g).",
+              "Almuerzo (600-700 kcal)":
+                  "Pechuga de pollo a la plancha (150g), Arroz integral (1 taza), Ensalada mixta con aceite de oliva.",
+              "Merienda": "Batido verde, Fresas (1 taza).",
+              "Cena (500-600 kcal)":
+                  "Salmón a la plancha (125g), Batata asada, Espárragos, Infusión.",
             },
             beneficios: [
-              "Equilibrio óptimo",
-              "Fácil de seguir",
-              "Rica en vitaminas",
+              "Equilibrio óptimo de nutrientes",
+              "Fácil de seguir a largo plazo",
+              "Rica en vitaminas y minerales",
             ],
           ),
 
@@ -61,7 +54,7 @@ class DietasScreen extends StatelessWidget {
           // 2. PLAN DE PÉRDIDA DE PESO (ROJO)
           _buildPlanAlimentacion(
             context,
-            colorBase: const Color(0xFFE57373), // Rojo/Rosa de tu imagen
+            colorBase: const Color(0xFFE57373),
             iconoPrincipal: Icons.trending_down,
             tituloPlan: "Plan de Pérdida de Peso",
             descripcionPlan:
@@ -71,26 +64,19 @@ class DietasScreen extends StatelessWidget {
             dificultad: "Moderado",
             adecuadoPara: ["Adultos", "Pérdida de peso", "Sobrepeso"],
             planComidas: {
-              "Desayuno (300-350 kcal)": [
-                "2 huevos revueltos",
-                "1 rebanada pan integral",
-                "Café sin azúcar",
-              ],
-              "Almuerzo (500-550 kcal)": [
-                "Ensalada de pollo",
-                "Verduras frescas",
-                "Agua con limón",
-              ],
-              "Cena (400-450 kcal)": [
-                "Pescado blanco",
-                "Espinacas salteadas",
-                "Ensalada verde",
-              ],
+              "Desayuno (300-350 kcal)":
+                  "2 huevos revueltos, Pan integral tostado (1 rebanada), Tomate en rodajas, Café sin azúcar.",
+              "Media Mañana": "10 almendras.",
+              "Almuerzo (500-550 kcal)":
+                  "Ensalada de pollo (150g pechuga), Variedad de vegetales frescos, Lentejas (1/2 taza).",
+              "Merienda": "Bebé zanahoria, Yogur natural descremado.",
+              "Cena (400-450 kcal)":
+                  "Pescado blanco a la plancha (150g), Brócoli al vapor, Ensalada verde.",
             },
             beneficios: [
-              "Déficit seguro",
-              "Bajo en carbohidratos",
-              "Rica en fibra",
+              "Déficit calórico seguro",
+              "Bajo en azúcares procesados",
+              "Rica en fibra para mayor saciedad",
             ],
           ),
 
@@ -99,7 +85,7 @@ class DietasScreen extends StatelessWidget {
           // 3. GANANCIA DE MASA MUSCULAR (VERDE)
           _buildPlanAlimentacion(
             context,
-            colorBase: const Color(0xFF66BB6A), // Verde de tu imagen
+            colorBase: const Color(0xFF66BB6A),
             iconoPrincipal: Icons.fitness_center,
             tituloPlan: "Ganancia de Masa Muscular",
             descripcionPlan:
@@ -109,38 +95,30 @@ class DietasScreen extends StatelessWidget {
             dificultad: "Avanzado",
             adecuadoPara: ["Deportistas", "Entrenamiento de fuerza", "Jóvenes"],
             planComidas: {
-              "Desayuno (600-650 kcal)": [
-                "Batido de proteína",
-                "3 huevos completos",
-                "Mantequilla de maní",
-              ],
-              "Almuerzo (800-850 kcal)": [
-                "Pechuga de pollo (200g)",
-                "Pasta integral",
-                "Aguacate",
-              ],
-              "Cena (600-650 kcal)": [
-                "Carne magra",
-                "Batata grande",
-                "Brócoli y espinacas",
-              ],
+              "Desayuno (600-700 kcal)":
+                  "3 huevos enteros, Arroz blanco (1 taza), Mantequilla de maní (2 cdas).",
+              "Media Mañana": "1 plátano mediano, 2 huevos duros.",
+              "Almuerzo (800-850 kcal)":
+                  "Carne magra de res (150g), Arroz integral (1.5 tazas), Frijoles negros (1/2 taza).",
+              "Post-Entreno":
+                  "Batido de proteína (40g), Plátano, Avena (1/2 taza).",
+              "Cena (500-600 kcal)":
+                  "Carne magra o pescado (200g), Batata grande, Ensalada verde mixta.",
             },
             beneficios: [
-              "Superávit controlado",
-              "Alta ingesta proteína",
-              "Soporte muscular",
+              "Superávit energético controlado",
+              "Alta ingesta de proteína de calidad",
+              "Soporte para la recuperación muscular",
             ],
           ),
 
           const SizedBox(height: 30),
-          _buildImportantNote(), // La nota amarilla al final
+          _buildImportantNote(),
           const SizedBox(height: 20),
         ],
       ),
     );
   }
-
-  // --- LOS WIDGETS DE APOYO (DEBEN IR DENTRO DE LA CLASE) ---
 
   Widget _buildPlanAlimentacion(
     BuildContext context, {
@@ -152,7 +130,7 @@ class DietasScreen extends StatelessWidget {
     required String duracion,
     required String dificultad,
     required List<String> adecuadoPara,
-    required Map<String, List<String>> planComidas,
+    required Map<String, String> planComidas,
     required List<String> beneficios,
   }) {
     return Card(
@@ -212,44 +190,45 @@ class DietasScreen extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 15),
-                Wrap(
-                  spacing: 8,
-                  children: adecuadoPara
-                      .map(
-                        (e) => Chip(
-                          label: Text(
-                            e,
-                            style: TextStyle(fontSize: 10, color: colorBase),
-                          ),
-                          backgroundColor: colorBase.withOpacity(0.1),
-                          side: BorderSide.none,
-                        ),
-                      )
-                      .toList(),
-                ),
-                const SizedBox(height: 15),
                 const Text(
                   "Ejemplo de comidas:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
+                const SizedBox(height: 8),
                 ...planComidas.entries.map(
-                  (e) => Text(
-                    "• ${e.key}: ${e.value.join(', ')}",
-                    style: const TextStyle(fontSize: 12),
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Text(
+                      "• ${e.key}: ${e.value}",
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black87,
+                      ),
+                    ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const Divider(height: 24),
                 const Text(
                   "Beneficios:",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
                 ),
+                const SizedBox(height: 8),
                 ...beneficios.map(
-                  (e) => Row(
-                    children: [
-                      Icon(Icons.check, size: 14, color: colorBase),
-                      const SizedBox(width: 5),
-                      Text(e, style: const TextStyle(fontSize: 12)),
-                    ],
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle_outline,
+                          size: 16,
+                          color: colorBase,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(e, style: const TextStyle(fontSize: 12)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -281,7 +260,7 @@ class DietasScreen extends StatelessWidget {
         border: Border.all(color: const Color(0xFFFFF176)),
       ),
       child: const Text(
-        "Importante: Estos planos son orientativos. Consulte con un nutricionista antes de iniciar.",
+        "Importante: Estos planes son orientativos. Consulte con un nutricionista antes de iniciar.",
         style: TextStyle(
           fontSize: 11,
           color: Color(0xFF827717),

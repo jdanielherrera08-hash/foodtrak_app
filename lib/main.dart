@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-// Importamos todas tus pantallas
 import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/registro_screen.dart';
 import 'package:flutter_application_1/screens/dietas_screen.dart';
 import 'package:flutter_application_1/screens/calculadora_screen.dart';
-import 'package:flutter_application_1/screens/consejos_screen.dart'; // Agregué esta
-// Importamos el widget de la barra
+import 'package:flutter_application_1/screens/consejos_screen.dart';
 import 'package:flutter_application_1/widgets/bottom_nav.dart';
 
 void main() => runApp(const FoodTrakApp());
@@ -18,10 +16,15 @@ class FoodTrakApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FoodTrak',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        useMaterial3: true, // Esto hace que se vea más moderno como tu Figma
-      ),
+      theme: ThemeData(primarySwatch: Colors.green, useMaterial3: true),
+      // --- AGREGAMOS ESTO PARA QUE LOS BOTONES FUNCIONEN ---
+      routes: {
+        '/registro': (context) => const RegistroScreen(),
+        '/calculadora': (context) => const CalculadoraScreen(),
+        '/dietas': (context) => const DietasScreen(),
+        '/consejos': (context) => const ConsejosScreen(),
+      },
+      // ----------------------------------------------------
       home: const MainWrapper(),
     );
   }
@@ -37,19 +40,18 @@ class MainWrapper extends StatefulWidget {
 class _MainWrapperState extends State<MainWrapper> {
   int _indiceActual = 0;
 
-  // IMPORTANTE: El orden de esta lista debe ser igual al del bottom_nav.dart
   final List<Widget> _pantallas = [
-    const HomeScreen(), // 0
-    const RegistroScreen(), // 1
-    const CalculadoraScreen(), // 2
-    const DietasScreen(), // 3
-    const ConsejosScreen(), // 4
+    const HomeScreen(),
+    const RegistroScreen(),
+    const CalculadoraScreen(),
+    const DietasScreen(),
+    const ConsejosScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Muestra la pantalla según el índice seleccionado
+      // IndexedStack es perfecto para no perder lo que el usuario escribe
       body: IndexedStack(index: _indiceActual, children: _pantallas),
       bottomNavigationBar: BottomNav(
         currentIndex: _indiceActual,

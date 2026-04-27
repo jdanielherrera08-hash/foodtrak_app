@@ -8,80 +8,199 @@ class ConsejosScreen extends StatefulWidget {
 }
 
 class _ConsejosScreenState extends State<ConsejosScreen> {
-  // Variable para saber qué categoría está seleccionada
-  String categoriaSeleccionada = "Nutrición";
+  String categoriaSeleccionada = "Nutrición Básica";
 
-  // Datos de los consejos basados en tus imágenes
-  final Map<String, List<Map<String, String>>> datosConsejos = {
-    "Nutrición": [
+  // Mapa con los 5 consejos por cada categoría según tus capturas
+  final Map<String, List<Map<String, String>>> contenidoConsejos = {
+    "Nutrición Básica": [
       {
-        "titulo": "Variedad en el plato",
+        "titulo": "El poder del arcoíris",
         "desc":
-            "Consume frutas y verduras de distintos colores para obtener diferentes vitaminas.",
+            "Ven frutas y verduras de diferentes colores cada día. Cada color representa diferentes nutrientes.",
+        "icon": "🌈",
       },
       {
-        "titulo": "Proteína magra",
+        "titulo": "Proteína en cada comida",
         "desc":
-            "Prioriza el consumo de pollo, pescado, legumbres y cortes magros de carne.",
+            "Incluye carne, pescado, huevos o legumbres para mantener la saciedad y masa muscular.",
+        "icon": "🥩",
+      },
+      {
+        "titulo": "Carbohidratos inteligentes",
+        "desc":
+            "Prefiere complejos como avena y arroz integral. Liberan energía de forma gradual.",
+        "icon": "🌾",
+      },
+      {
+        "titulo": "Grasas saludables",
+        "desc":
+            "Aguacate, nueces y aceite de oliva son esenciales para la salud hormonal y cerebral.",
+        "icon": "🥑",
+      },
+      {
+        "titulo": "Controla las porciones",
+        "desc":
+            "Usa tu mano como guía: palma para proteínas, puño para carbohidratos.",
+        "icon": "✋",
       },
     ],
     "Hidratación": [
       {
-        "titulo": "Agua es vida",
+        "titulo": "Agua como prioridad",
         "desc":
-            "Bebe al menos 2 litros de agua al día, incluso si no tienes sed.",
+            "Haz del agua tu fuente principal de hidratación durante todo el día.",
+        "icon": "💧",
       },
       {
-        "titulo": "Evita azúcares",
+        "titulo": "Escucha tu sed",
         "desc":
-            "Sustituye refrescos y jugos procesados por agua natural o infusiones.",
+            "No esperes a tener la boca seca; la sed es una señal tardía de deshidratación.",
+        "icon": "👂",
+      },
+      {
+        "titulo": "Evita bebidas azucaradas",
+        "desc":
+            "Refrescos y jugos procesados añaden calorías vacías sin hidratar realmente.",
+        "icon": "🚫",
+      },
+      {
+        "titulo": "Hidratación y ejercicio",
+        "desc":
+            "Bebe agua antes, durante y después de cualquier actividad física intensa.",
+        "icon": "🏃",
+      },
+      {
+        "titulo": "Frutas acuosas",
+        "desc":
+            "Consume sandía, pepino o naranja para obtener hidratación extra mediante la comida.",
+        "icon": "🍉",
       },
     ],
-    "Ejercicio": [
+    "Ejercicio y Actividad": [
+      {
+        "titulo": "Movimiento diario",
+        "desc":
+            "Intenta caminar al menos 30 minutos al día para mantener activo tu metabolismo.",
+        "icon": "🚶",
+      },
+      {
+        "titulo": "Entrenamiento de fuerza",
+        "desc":
+            "Ayuda a fortalecer huesos y aumentar el gasto calórico incluso en reposo.",
+        "icon": "🏋️",
+      },
+      {
+        "titulo": "Estiramientos",
+        "desc":
+            "Mejora la flexibilidad y reduce el riesgo de lesiones musculares.",
+        "icon": "🧘",
+      },
+      {
+        "titulo": "Descanso activo",
+        "desc":
+            "En tus días libres, realiza actividades ligeras como pasear o jugar.",
+        "icon": "🎾",
+      },
       {
         "titulo": "Consistencia",
         "desc":
-            "Realiza al menos 30 minutos de actividad física moderada 5 veces por semana.",
-      },
-      {
-        "titulo": "Fuerza y Cardio",
-        "desc":
-            "Combina ejercicios de resistencia muscular con caminatas o correr.",
+            "Es mejor hacer poco frecuentemente que mucho una sola vez a la semana.",
+        "icon": "📅",
       },
     ],
     "Salud Mental": [
       {
-        "titulo": "Descanso reparador",
+        "titulo": "Alimentación consciente",
         "desc":
-            "Duerme entre 7 y 8 horas para permitir que tu cuerpo y mente se recuperen.",
+            "Come sin distracciones (sin móvil) para notar mejor tus señales de saciedad.",
+        "icon": "🧠",
+      },
+      {
+        "titulo": "Sueño reparador",
+        "desc":
+            "Dormir 7-8 horas es vital para regular las hormonas del hambre.",
+        "icon": "😴",
       },
       {
         "titulo": "Manejo del estrés",
         "desc":
-            "Dedica 10 minutos al día a la meditación o respiración profunda.",
+            "El cortisol elevado por estrés puede aumentar los antojos por dulce.",
+        "icon": "🧘‍♂️",
+      },
+      {
+        "titulo": "Permítete disfrutar",
+        "desc":
+            "La salud mental incluye disfrutar de tus comidas favoritas sin culpa.",
+        "icon": "🍕",
+      },
+      {
+        "titulo": "Conexión social",
+        "desc":
+            "Compartir comidas con amigos o familia mejora el bienestar emocional.",
+        "icon": "👥",
       },
     ],
     "Estilo de Vida": [
       {
-        "titulo": "Menos pantallas",
+        "titulo": "Planificación semanal",
         "desc":
-            "Reduce el uso de dispositivos móviles una hora antes de dormir.",
+            "Prepara tus comidas con antelación para evitar elegir opciones poco saludables.",
+        "icon": "🍱",
+      },
+      {
+        "titulo": "Lee etiquetas",
+        "desc":
+            "Revisa los ingredientes para evitar excesos de sodio y azúcares ocultos.",
+        "icon": "🔍",
       },
       {
         "titulo": "Cocina en casa",
         "desc":
-            "Preparar tus alimentos te da control total sobre la sal y grasas que consumes.",
+            "Te permite tener control total sobre la calidad y cantidad de grasa y sal.",
+        "icon": "👨‍🍳",
+      },
+      {
+        "titulo": "Pequeños cambios",
+        "desc":
+            "Sustituye el elevador por las escaleras siempre que sea posible.",
+        "icon": "🪜",
+      },
+      {
+        "titulo": "Rodéate de salud",
+        "desc": "Ten a la mano snacks saludables como fruta o frutos secos.",
+        "icon": "🍎",
       },
     ],
     "Por Edades": [
       {
-        "titulo": "Jóvenes",
+        "titulo": "Crecimiento (Niños)",
         "desc":
-            "Enfocarse en el calcio y hierro para el crecimiento y energía.",
+            "Enfoque en calcio y proteínas para el desarrollo de huesos y músculos.",
+        "icon": "👦",
       },
       {
-        "titulo": "Adultos Mayores",
-        "desc": "Asegurar la ingesta de fibra y Vitamina D para la salud ósea.",
+        "titulo": "Energía (Jóvenes)",
+        "desc":
+            "Priorizar carbohidratos complejos para el alto gasto energético y estudio.",
+        "icon": "🎓",
+      },
+      {
+        "titulo": "Balance (Adultos)",
+        "desc":
+            "Mantener un equilibrio calórico para prevenir enfermedades metabólicas.",
+        "icon": "👩",
+      },
+      {
+        "titulo": "Vitalidad (Seniors)",
+        "desc":
+            "Aumentar el consumo de fibra y mantenerse muy bien hidratados.",
+        "icon": "👴",
+      },
+      {
+        "titulo": "Necesidades únicas",
+        "desc":
+            "Consulta siempre a un profesional para ajustar la dieta según tu etapa vital.",
+        "icon": "⚕️",
       },
     ],
   };
@@ -89,125 +208,153 @@ class _ConsejosScreenState extends State<ConsejosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
-      appBar: AppBar(
-        title: const Text("Consejos Saludables"),
-        backgroundColor: Colors.orange[700],
-        foregroundColor: Colors.white,
-        elevation: 0,
+      backgroundColor: const Color(0xFFF2E8D3), // Color arena de fondo
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+            _buildHeader(),
+            _buildCategorias(),
+            _buildListaConsejos(),
+            _buildConsejoDelDia(),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
-      body: Column(
-        children: [
-          // --- FILA DE BOTONES (CATEGORÍAS) ---
-          Container(
-            height: 60,
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              children: [
-                _botonCategoria("Nutrición", Icons.apple, Colors.red),
-                _botonCategoria("Hidratación", Icons.water_drop, Colors.blue),
-                _botonCategoria(
-                  "Ejercicio",
-                  Icons.fitness_center,
-                  Colors.green,
-                ),
-                _botonCategoria(
-                  "Salud Mental",
-                  Icons.psychology,
-                  Colors.purple,
-                ),
-                _botonCategoria(
-                  "Estilo de Vida",
-                  Icons.wb_sunny,
-                  Colors.orange,
-                ),
-                _botonCategoria("Por Edades", Icons.groups, Colors.brown),
-              ],
-            ),
-          ),
+    );
+  }
 
-          // --- LISTA DE CONSEJOS DINÁMICA ---
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(15),
-              itemCount: datosConsejos[categoriaSeleccionada]!.length,
-              itemBuilder: (context, index) {
-                final consejo = datosConsejos[categoriaSeleccionada]![index];
-                return _cardConsejo(consejo["titulo"]!, consejo["desc"]!);
-              },
-            ),
+  Widget _buildHeader() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.lightbulb_outline, color: Colors.orange),
+              SizedBox(width: 10),
+              Text(
+                "Consejos de Nutrición",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(height: 5),
+          Text(
+            "Aprende hábitos saludables y consejos prácticos.",
+            style: TextStyle(color: Colors.grey, fontSize: 13),
           ),
         ],
       ),
     );
   }
 
-  // Widget para crear los botones de arriba
-  Widget _botonCategoria(String nombre, IconData icono, Color color) {
-    bool seleccionada = categoriaSeleccionada == nombre;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            categoriaSeleccionada = nombre;
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          decoration: BoxDecoration(
-            color: seleccionada ? color : color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(color: color),
-          ),
-          child: Row(
-            children: [
-              Icon(icono, size: 18, color: seleccionada ? Colors.white : color),
-              const SizedBox(width: 8),
-              Text(
-                nombre,
-                style: TextStyle(
-                  color: seleccionada ? Colors.white : color,
-                  fontWeight: FontWeight.bold,
+  Widget _buildCategorias() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: contenidoConsejos.keys.map((cat) {
+          bool isSelected = categoriaSeleccionada == cat;
+          return GestureDetector(
+            onTap: () => setState(() => categoriaSeleccionada = cat),
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              decoration: BoxDecoration(
+                color: isSelected ? const Color(0xFFE8F5E9) : Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                  color: isSelected ? Colors.green : Colors.transparent,
                 ),
               ),
-            ],
-          ),
-        ),
+              child: Text(
+                cat,
+                style: TextStyle(
+                  color: isSelected ? Colors.green : Colors.black54,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
 
-  // Widget para las tarjetas de consejos
-  Widget _cardConsejo(String titulo, String desc) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 15),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.lightbulb, color: Colors.orange),
-                const SizedBox(width: 10),
-                Text(
-                  titulo,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+  Widget _buildListaConsejos() {
+    return Column(
+      children: contenidoConsejos[categoriaSeleccionada]!.map((c) {
+        return Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.green.withOpacity(0.1)),
+          ),
+          child: Row(
+            children: [
+              Text(c["icon"]!, style: const TextStyle(fontSize: 30)),
+              const SizedBox(width: 15),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      c["titulo"]!,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2E7D32),
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      c["desc"]!,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.black54,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            const Divider(),
-            Text(desc, style: const TextStyle(color: Colors.black87)),
-          ],
+              ),
+            ],
+          ),
+        );
+      }).toList(),
+    );
+  }
+
+  Widget _buildConsejoDelDia() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Colors.blueAccent, Colors.purpleAccent],
         ),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: const Column(
+        children: [
+          Text(
+            "Consejo del Día",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          Text(
+            "\"La nutrición perfecta no existe. Lo que funciona es la consistencia con hábitos saludables.\"",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
+          ),
+        ],
       ),
     );
   }

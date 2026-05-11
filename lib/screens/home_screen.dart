@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  // --- RECIBIMOS LOS DATOS REALES DESDE EL MAIN ---
   final double metaCalorica;
   final double caloriasConsumidas;
   final double p;
@@ -24,12 +23,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Calculamos el porcentaje real para el cuadro azul y las gráficas
-  double get porcentaje =>
-      (widget.caloriasConsumidas / widget.metaCalorica).clamp(0.0, 1.0);
+  // Movimos el cálculo directamente a una función que se use en el build
+  double _obtenerPorcentaje() {
+    if (widget.metaCalorica <= 0) return 0.0;
+    return (widget.caloriasConsumidas / widget.metaCalorica).clamp(0.0, 1.0);
+  }
 
   @override
   Widget build(BuildContext context) {
+    // Calculamos el porcentaje actual aquí mismo para que siempre sea el real
+    final porcentajeActual = _obtenerPorcentaje();
+
     return Scaffold(
       backgroundColor: const Color(0xFFF2E8D3),
       appBar: AppBar(
@@ -43,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // --- CUADROS DE PROGRESO REALES ---
             Row(
               children: [
                 _buildCard(
@@ -59,7 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   flex: 1,
                   color: const Color(0xFF00C853),
                   title: "Meta Diario",
-                  value: "${widget.metaCalorica.toInt()}",
+                  value:
+                      "${widget.metaCalorica.toInt()}", // Esto mostrará el 1834
                   subtitle:
                       "Quedan ${(widget.metaCalorica - widget.caloriasConsumidas).toInt()} kcal",
                   icon: Icons.track_changes,
@@ -71,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               flex: 0,
               color: Colors.blueAccent,
               title: "Progreso",
-              value: "${(porcentaje * 100).toInt()}%", // AHORA ES DINÁMICO
+              value: "${(porcentajeActual * 100).toInt()}%",
               subtitle: "completado",
               icon: Icons.trending_up,
               btn: ElevatedButton.icon(
@@ -84,21 +88,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-
             const SizedBox(height: 20),
-
-            // --- GRÁFICAS CONECTADAS ---
             Row(
               children: [
-                Expanded(child: _buildGraficaSemanal()),
+                Expanded(child: _buildGraficaSemanal(porcentajeActual)),
                 const SizedBox(width: 10),
-                Expanded(child: _buildMacrosHoy()),
+                Expanded(child: _buildMacrosHoy(porcentajeActual)),
               ],
             ),
-
             const SizedBox(height: 20),
-
-            // --- ACCESOS RÁPIDOS ---
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -113,21 +111,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // --- GRÁFICA SEMANAL QUE REACCIONA AL CONSUMO ---
-  Widget _buildGraficaSemanal() {
+  Widget _buildGraficaSemanal(double porcentaje) {
     return _buildSection(
       title: "Progreso Semanal",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          _barrita("L", 0.3), _barrita("M", 0.5), _barrita("M", 0.2),
-          _barrita("J", 0.8), _barrita("V", 0.4), _barrita("S", 0.6),
-          _barrita(
-            "D",
-            porcentaje,
-            isToday: true,
-          ), // El domingo (hoy) sube con tu comida
+          _barrita("L", 0.3),
+          _barrita("M", 0.5),
+          _barrita("M", 0.2),
+          _barrita("J", 0.8),
+          _barrita("V", 0.4),
+          _barrita("S", 0.6),
+          _barrita("D", porcentaje, isToday: true),
         ],
       ),
     );
@@ -153,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildMacrosHoy() {
+  Widget _buildMacrosHoy(double porcentaje) {
     return _buildSection(
       title: "Macros de Hoy",
       child: Column(
@@ -177,8 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-  // --- LOS DEMÁS MÉTODOS DE SOPORTE (_buildCard, _buildSection, etc.) ---
 
   Widget _macroRow(String val, String label, Color c) {
     return Row(
@@ -240,7 +235,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildSection({
     required String title,
-    Widget? action, // Este es el que te marca error
+    Widget? action,
     required Widget child,
   }) {
     return Container(
@@ -252,7 +247,6 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Fila para el título y la acción opcional
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -264,8 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   fontSize: 12,
                 ),
               ),
-              if (action != null)
-                action, // Aquí ya usamos la variable y desaparece el error
+              if (action != null) action,
             ],
           ),
           const Divider(),

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
 class RegistroScreen extends StatefulWidget {
-  const RegistroScreen({super.key});
+  // 1. Esto define que la pantalla puede recibir la función desde el main
+  final Function(double kcal, double p, double c, double g) onAlimentoAgregado;
+
+  // 2. Este es el "enchufe" (constructor) que el main.dart está buscando
+  const RegistroScreen({super.key, required this.onAlimentoAgregado});
 
   @override
   State<RegistroScreen> createState() => _RegistroScreenState();
 }
+
+@override
+State<RegistroScreen> createState() => _RegistroScreenState();
 
 class _RegistroScreenState extends State<RegistroScreen> {
   final Color greenPrimary = const Color(0xFF8A9A5B);
@@ -335,13 +342,49 @@ class _RegistroScreenState extends State<RegistroScreen> {
   void _agregarAlDia(Map<String, dynamic> alimento) {
     setState(() {
       var nuevoItem = Map<String, dynamic>.from(alimento);
+
       nuevoItem["tipo"] = comidaSeleccionada;
+
       alimentosAgregados.add(nuevoItem);
     });
+
+    // =========================================
+    // ENVIAR DATOS AL MAIN.DART
+    // =========================================
+
+    String macros = alimento["macros"];
+
+    double p = 0;
+    double g = 0;
+    double c = 0;
+
+    try {
+      p = double.parse(
+        macros.split("|")[0].replaceAll("P:", "").replaceAll("g", "").trim(),
+      );
+
+      g = double.parse(
+        macros.split("|")[1].replaceAll("G:", "").replaceAll("g", "").trim(),
+      );
+
+      c = double.parse(
+        macros.split("|")[2].replaceAll("C:", "").replaceAll("g", "").trim(),
+      );
+    } catch (e) {
+      p = 0;
+      g = 0;
+      c = 0;
+    }
+
+    // MANDAR CALORÍAS Y MACROS
+    widget.onAlimentoAgregado(alimento["cal"].toDouble(), p, c, g);
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("${alimento['nombre']} agregado a $comidaSeleccionada"),
+
         duration: const Duration(milliseconds: 800),
+
         backgroundColor: greenPrimary,
       ),
     );
@@ -565,35 +608,66 @@ class _RegistroScreenState extends State<RegistroScreen> {
   Widget _buildItemConsumido(Map<String, dynamic> item) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
+
       child: Row(
         children: [
           Container(
             width: 4,
             height: 40,
+
             decoration: BoxDecoration(
               color: greenPrimary,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
+
           const SizedBox(width: 12),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+
               children: [
                 Text(
                   item["nombre"],
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
+
                 Text(
                   "${item['tipo']} • ${item['macros']}",
+
                   style: const TextStyle(fontSize: 10, color: Colors.grey),
                 ),
               ],
             ),
           ),
-          Text(
-            "${item['cal']} kcal",
-            style: TextStyle(color: orangeAccent, fontWeight: FontWeight.bold),
+
+          Row(
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+              Text(
+                "${item['cal']} kcal",
+
+                style: TextStyle(
+                  color: orangeAccent,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.red, size: 20),
+
+                onPressed: () {
+                  setState(() {
+                    // RESTAR CALORÍAS
+                    widget.onAlimentoAgregado(-item["cal"].toDouble(), 0, 0, 0);
+
+                    alimentosAgregados.remove(item);
+                  });
+                },
+              ),
+            ],
           ),
         ],
       ),

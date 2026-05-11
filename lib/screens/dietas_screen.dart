@@ -6,10 +6,10 @@ class DietasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2E8D3), // Fondo color arena
+      backgroundColor: const Color(0xFFF2E8D3),
       appBar: AppBar(
         title: const Text("Planes de Alimentación"),
-        backgroundColor: const Color(0xFF8A9A5B), // Título en verde oliva
+        backgroundColor: const Color(0xFF8A9A5B),
         foregroundColor: Colors.white,
         elevation: 0,
       ),

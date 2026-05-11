@@ -53,7 +53,17 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
           _caloriasObjetivo = _tdee! + 300;
         else
           _caloriasObjetivo = _tdee!;
+
+        widget.onMetaCalculada(_caloriasObjetivo!);
       });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("¡Nueva meta enviada al Inicio!"),
+          backgroundColor: Color(0xFF8A9A5B),
+          duration: Duration(milliseconds: 800),
+        ),
+      );
     }
   }
 
@@ -187,7 +197,6 @@ class _CalculadoraScreenState extends State<CalculadoraScreen> {
   }
 
   Widget _buildMacrosCard() {
-    // Cálculo simple de macros basado en calorías objetivo
     double p = (_caloriasObjetivo! * 0.30) / 4;
     double c = (_caloriasObjetivo! * 0.40) / 4;
     double g = (_caloriasObjetivo! * 0.30) / 9;

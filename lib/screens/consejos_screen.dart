@@ -10,7 +10,6 @@ class ConsejosScreen extends StatefulWidget {
 class _ConsejosScreenState extends State<ConsejosScreen> {
   String categoriaSeleccionada = "Nutrición Básica";
 
-  // Mapa con los 5 consejos por cada categoría según tus capturas
   final Map<String, List<Map<String, String>>> contenidoConsejos = {
     "Nutrición Básica": [
       {
@@ -208,7 +207,7 @@ class _ConsejosScreenState extends State<ConsejosScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2E8D3), // Color arena de fondo
+      backgroundColor: const Color(0xFFF2E8D3),
       body: SingleChildScrollView(
         child: Column(
           children: [

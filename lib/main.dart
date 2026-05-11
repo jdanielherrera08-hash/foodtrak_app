@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/login_screen.dart';
+import 'package:flutter_application_1/screens/register_screen.dart';
 import 'package:flutter_application_1/screens/home_screen.dart';
 import 'package:flutter_application_1/screens/registro_screen.dart';
 import 'package:flutter_application_1/screens/dietas_screen.dart';
@@ -16,11 +18,19 @@ class FoodTrakApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'FoodTrak',
+
       theme: ThemeData(
         primaryColor: const Color(0xFF8A9A5B),
         useMaterial3: true,
       ),
-      home: const MainWrapper(),
+
+      home: const LoginScreen(),
+
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const MainWrapper(),
+      },
     );
   }
 }
@@ -35,25 +45,18 @@ class MainWrapper extends StatefulWidget {
 class _MainWrapperState extends State<MainWrapper> {
   int _indiceActual = 0;
 
-  // --- VARIABLES DE ESTADO GLOBAL ---
-  double metaCalorica = 2000.0; // Valor inicial por defecto
+  double metaCalorica = 2000.0;
   double caloriasConsumidas = 0.0;
-
-  // Para las gráficas de macros
   double proteinas = 0.0;
   double carbohidratos = 0.0;
   double grasas = 0.0;
 
-  // --- FUNCIONES PARA ACTUALIZAR DATOS ---
-
-  // Esta función la usará la Calculadora para cambiar la meta (Cuadro Verde)
   void actualizarMeta(double nuevaMeta) {
     setState(() {
       metaCalorica = nuevaMeta;
     });
   }
 
-  // Esta función la usará el Registro para sumar calorías (Cuadro Rojo y Gráficas)
   void agregarCalorias(double kcal, double p, double c, double g) {
     setState(() {
       caloriasConsumidas += kcal;
@@ -65,30 +68,29 @@ class _MainWrapperState extends State<MainWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    // Definimos las pantallas pasando los datos y las funciones de actualización
-    final List<Widget> _pantallas = [
-      HomeScreen(
-        metaCalorica: metaCalorica,
-        caloriasConsumidas: caloriasConsumidas,
-        p: proteinas,
-        c: carbohidratos,
-        g: grasas,
-        onTabRequested: (index) {
-          setState(() => _indiceActual = index);
-        },
-      ),
-      RegistroScreen(
-        onAlimentoAgregado: agregarCalorias, // Pasamos la función al registro
-      ),
-      CalculadoraScreen(
-        onMetaCalculada: actualizarMeta, // Pasamos la función a la calculadora
-      ),
-      const DietasScreen(),
-      const ConsejosScreen(),
-    ];
-
     return Scaffold(
-      body: IndexedStack(index: _indiceActual, children: _pantallas),
+      body: IndexedStack(
+        index: _indiceActual,
+        children: [
+          HomeScreen(
+            metaCalorica: metaCalorica,
+            caloriasConsumidas: caloriasConsumidas,
+            p: proteinas,
+            c: carbohidratos,
+            g: grasas,
+            onTabRequested: (index) {
+              setState(() {
+                _indiceActual = index;
+              });
+            },
+          ),
+          RegistroScreen(onAlimentoAgregado: agregarCalorias),
+          CalculadoraScreen(onMetaCalculada: actualizarMeta),
+          const DietasScreen(),
+          const ConsejosScreen(),
+        ],
+      ),
+
       bottomNavigationBar: BottomNav(
         currentIndex: _indiceActual,
         onTap: (index) {

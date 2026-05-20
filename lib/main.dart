@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_application_1/screens/login_screen.dart';
 import 'package:flutter_application_1/screens/register_screen.dart';
 import 'package:flutter_application_1/screens/home_screen.dart';
@@ -8,7 +9,18 @@ import 'package:flutter_application_1/screens/calculadora_screen.dart';
 import 'package:flutter_application_1/screens/consejos_screen.dart';
 import 'package:flutter_application_1/widgets/bottom_nav.dart';
 
-void main() => runApp(const FoodTrakApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await Firebase.initializeApp();
+    print("¡Conexión a Firebase exitosa!");
+  } catch (e) {
+    print("Error conectando a Firebase: $e");
+  }
+
+  runApp(const FoodTrakApp());
+}
 
 class FoodTrakApp extends StatelessWidget {
   const FoodTrakApp({super.key});

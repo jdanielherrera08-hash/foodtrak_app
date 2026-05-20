@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "875082904758",
+    "project_id": "foodtrack-app-2026",
+    "storage_bucket": "foodtrack-app-2026.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875082904758:android:61ef7b9673d1de71556217",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4SZTio8GUAhh5BSx4ym7EqSq0_q1Sq_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

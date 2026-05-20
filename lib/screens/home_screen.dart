@@ -29,6 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return (widget.caloriasConsumidas / widget.metaCalorica).clamp(0.0, 1.0);
   }
 
+  // Función auxiliar para obtener la fecha formateada en español de forma dinámica
+  String _obtenerFechaActual() {
+    final ahora = DateTime.now();
+    final meses = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre',
+    ];
+    return "${ahora.day} de ${meses[ahora.month - 1]}";
+  }
+
   @override
   Widget build(BuildContext context) {
     // Calculamos el porcentaje actual aquí mismo para que siempre sea el real
@@ -37,9 +57,27 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF2E8D3),
       appBar: AppBar(
-        title: const Text(
-          "¡Bienvenido a FoodTrack!",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        // Modificado: Se añade un Column para meter la fecha debajo del título de bienvenida
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "¡Bienvenido a FoodTrack!",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Text(
+              _obtenerFechaActual(),
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
         ),
         backgroundColor: const Color(0xFF8A9A5B),
       ),
@@ -112,19 +150,51 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildGraficaSemanal(double porcentaje) {
+    // Obtenemos el día de la semana actual (1 = Lunes, 2 = Martes, ..., 7 = Domingo)
+    final diaActual = DateTime.now().weekday;
+
     return _buildSection(
       title: "Progreso Semanal",
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          _barrita("L", 0.3),
-          _barrita("M", 0.5),
-          _barrita("M", 0.2),
-          _barrita("J", 0.8),
-          _barrita("V", 0.4),
-          _barrita("S", 0.6),
-          _barrita("D", porcentaje, isToday: true),
+          // Modificado: El día correspondiente a hoy se marca dinámicamente y consume el porcentaje real
+          _barrita(
+            "L",
+            diaActual == 1 ? porcentaje : 0.3,
+            isToday: diaActual == 1,
+          ),
+          _barrita(
+            "M",
+            diaActual == 2 ? porcentaje : 0.5,
+            isToday: diaActual == 2,
+          ),
+          _barrita(
+            "M",
+            diaActual == 3 ? porcentaje : 0.2,
+            isToday: diaActual == 3,
+          ),
+          _barrita(
+            "J",
+            diaActual == 4 ? porcentaje : 0.8,
+            isToday: diaActual == 4,
+          ),
+          _barrita(
+            "V",
+            diaActual == 5 ? porcentaje : 0.4,
+            isToday: diaActual == 5,
+          ),
+          _barrita(
+            "S",
+            diaActual == 6 ? porcentaje : 0.6,
+            isToday: diaActual == 6,
+          ),
+          _barrita(
+            "D",
+            diaActual == 7 ? porcentaje : 0.1,
+            isToday: diaActual == 7,
+          ),
         ],
       ),
     );

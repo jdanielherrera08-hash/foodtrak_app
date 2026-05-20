@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RegistroScreen extends StatefulWidget {
-  // 1. Esto define que la pantalla puede recibir la función desde el main
   final Function(double kcal, double p, double c, double g) onAlimentoAgregado;
 
-  // 2. Este es el "enchufe" (constructor) que el main.dart está buscando
   const RegistroScreen({super.key, required this.onAlimentoAgregado});
 
   @override
@@ -22,9 +20,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
   String comidaSeleccionada = "Desayuno";
   final TextEditingController _searchController = TextEditingController();
 
-  // LISTA COMPLETA DE ALIMENTOS INTEGRADA
   final List<Map<String, dynamic>> catalogoAlimentos = [
-    // PROTEÍNAS Y LÁCTEOS
     {
       "nombre": "Leche",
       "detalle": "100ml",
@@ -36,6 +32,102 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "detalle": "100g",
       "cal": 155,
       "macros": "P: 13g | G: 11g | C: 1g",
+    },
+    {
+      "nombre": "Licuado de plátano con avena",
+      "detalle": "1 vaso (350ml)",
+      "cal": 315,
+      "macros": "P: 11.2g | G: 5.3g | C: 57.5g",
+    },
+    {
+      "nombre": "Batido verde antioxidante",
+      "detalle": "1 vaso (300ml)",
+      "cal": 65,
+      "macros": "P: 1.8g | G: 0.5g | C: 14.2g",
+    },
+    {
+      "nombre": "Licuado de fresa con almendras",
+      "detalle": "1 vaso (350ml)",
+      "cal": 225,
+      "macros": "P: 7.2g | G: 11.8g | C: 23.5g",
+    },
+    {
+      "nombre": "Sándwich de pollo clásico",
+      "detalle": "1 pieza",
+      "cal": 340,
+      "macros": "P: 28.5g | G: 9.2g | C: 36g",
+    },
+    {
+      "nombre": "Molletes integrales con pico de gallo",
+      "detalle": "2 piezas",
+      "cal": 385,
+      "macros": "P: 16.5g | G: 11.2g | C: 54g",
+    },
+    {
+      "nombre": "Pechuga con arroz y verduras",
+      "detalle": "1 plato (350g)",
+      "cal": 425,
+      "macros": "P: 38.5g | G: 6.2g | C: 54.5g",
+    },
+    {
+      "nombre": "Tacos de guisado con nopales",
+      "detalle": "3 piezas",
+      "cal": 390,
+      "macros": "P: 22g | G: 9.5g | C: 53g",
+    },
+    {
+      "nombre": "Filete de pescado empapelado",
+      "detalle": "1 plato (250g)",
+      "cal": 245,
+      "macros": "P: 26.2g | G: 5.6g | C: 21g",
+    },
+    {
+      "nombre": "Licuado de plátano con avena",
+      "detalle": "1 vaso (350ml)",
+      "cal": 315,
+      "macros": "P: 11.2g | G: 5.3g | C: 57.5g",
+    },
+    {
+      "nombre": "Batido verde antioxidante",
+      "detalle": "1 vaso (300ml)",
+      "cal": 65,
+      "macros": "P: 1.8g | G: 0.5g | C: 14.2g",
+    },
+    {
+      "nombre": "Licuado de fresa con almendras",
+      "detalle": "1 vaso (350ml)",
+      "cal": 225,
+      "macros": "P: 7.2g | G: 11.8g | C: 23.5g",
+    },
+    {
+      "nombre": "Sándwich de pollo clásico",
+      "detalle": "1 pieza",
+      "cal": 340,
+      "macros": "P: 28.5g | G: 9.2g | C: 36g",
+    },
+    {
+      "nombre": "Molletes integrales con pico de gallo",
+      "detalle": "2 piezas",
+      "cal": 385,
+      "macros": "P: 16.5g | G: 11.2g | C: 54g",
+    },
+    {
+      "nombre": "Pechuga con arroz y verduras",
+      "detalle": "1 plato (350g)",
+      "cal": 425,
+      "macros": "P: 38.5g | G: 6.2g | C: 54.5g",
+    },
+    {
+      "nombre": "Tacos de guisado con nopales",
+      "detalle": "3 piezas",
+      "cal": 390,
+      "macros": "P: 22g | G: 9.5g | C: 53g",
+    },
+    {
+      "nombre": "Filete de pescado empapelado",
+      "detalle": "1 plato (250g)",
+      "cal": 245,
+      "macros": "P: 26.2g | G: 5.6g | C: 21g",
     },
     {
       "nombre": "Carne de res",
@@ -85,7 +177,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "cal": 401,
       "macros": "P: 25g | G: 33g | C: 1g",
     },
-    // CARBOHIDRATOS
     {
       "nombre": "Arroz blanco",
       "detalle": "100g",
@@ -146,7 +237,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "cal": 120,
       "macros": "P: 9g | G: 0.4g | C: 20g",
     },
-    // FRUTAS
     {
       "nombre": "Manzana",
       "detalle": "100g",
@@ -219,7 +309,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "cal": 69,
       "macros": "P: 1.1g | G: 0.5g | C: 15g",
     },
-    // VERDURAS
     {
       "nombre": "Brócoli",
       "detalle": "100g",
@@ -280,7 +369,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "cal": 20,
       "macros": "P: 1.2g | G: 0.3g | C: 3g",
     },
-    // GRASAS
     {
       "nombre": "Aguacate",
       "detalle": "100g",
@@ -310,6 +398,156 @@ class _RegistroScreenState extends State<RegistroScreen> {
       "detalle": "100g",
       "cal": 701,
       "macros": "P: 15g | G: 65g | C: 14g",
+    },
+    {
+      "nombre": "Queso panela",
+      "detalle": "100g",
+      "cal": 240,
+      "macros": "P: 18g | G: 17g | C: 3g",
+    },
+    {
+      "nombre": "Queso oaxaca / asadero",
+      "detalle": "100g",
+      "cal": 300,
+      "macros": "P: 22g | G: 22g | C: 2g",
+    },
+    {
+      "nombre": "Queso cheddar",
+      "detalle": "100g",
+      "cal": 403,
+      "macros": "P: 25g | G: 33g | C: 1.3g",
+    },
+    {
+      "nombre": "Queso crema",
+      "detalle": "100g",
+      "cal": 342,
+      "macros": "P: 6g | G: 34g | C: 4g",
+    },
+    {
+      "nombre": "Queso cottage",
+      "detalle": "100g",
+      "cal": 98,
+      "macros": "P: 11g | G: 4.3g | C: 3.4g",
+    },
+    {
+      "nombre": "Leche entera",
+      "detalle": "100ml",
+      "cal": 61,
+      "macros": "P: 3.2g | G: 3.3g | C: 4.7g",
+    },
+    {
+      "nombre": "Leche descremada / light",
+      "detalle": "100ml",
+      "cal": 35,
+      "macros": "P: 3.4g | G: 0.1g | C: 4.9g",
+    },
+    {
+      "nombre": "Leche de almendras (sin azúcar)",
+      "detalle": "100ml",
+      "cal": 15,
+      "macros": "P: 0.5g | G: 1.1g | C: 0.3g",
+    },
+    {
+      "nombre": "Leche de avena",
+      "detalle": "100ml",
+      "cal": 48,
+      "macros": "P: 1g | G: 1.5g | C: 7.5g",
+    },
+    {
+      "nombre": "Leche achocolatada",
+      "detalle": "100ml",
+      "cal": 80,
+      "macros": "P: 3.2g | G: 2g | C: 11.5g",
+    },
+    {
+      "nombre": "Yogurt griego natural sin azúcar",
+      "detalle": "100g",
+      "cal": 59,
+      "macros": "P: 10g | G: 0.4g | C: 3.6g",
+    },
+    {
+      "nombre": "Yogurt natural con azúcar",
+      "detalle": "100g",
+      "cal": 95,
+      "macros": "P: 3.5g | G: 2.5g | C: 14g",
+    },
+    {
+      "nombre": "Yogurt de fresa",
+      "detalle": "100g",
+      "cal": 102,
+      "macros": "P: 3.2g | G: 2g | C: 17g",
+    },
+    {
+      "nombre": "Yogurt para beber",
+      "detalle": "1 pieza (220g)",
+      "cal": 180,
+      "macros": "P: 5.5g | G: 3.2g | C: 31g",
+    },
+    {
+      "nombre": "Pizza de pepperoni",
+      "detalle": "1 rebanada grande",
+      "cal": 290,
+      "macros": "P: 12g | G: 12g | C: 32g",
+    },
+    {
+      "nombre": "Hamburguesa con queso clásica",
+      "detalle": "1 pieza",
+      "cal": 480,
+      "macros": "P: 28g | G: 24g | C: 38g",
+    },
+    {
+      "nombre": "Papas fritas",
+      "detalle": "1 porción mediana (110g)",
+      "cal": 365,
+      "macros": "P: 4g | G: 17g | C: 48g",
+    },
+    {
+      "nombre": "Hot dog clásico",
+      "detalle": "1 pieza",
+      "cal": 290,
+      "macros": "P: 10g | G: 16g | C: 26g",
+    },
+    {
+      "nombre": "Tacos al pastor",
+      "detalle": "1 orden (3 tacos)",
+      "cal": 450,
+      "macros": "P: 24g | G: 18g | C: 42g",
+    },
+    {
+      "nombre": "Chilaquiles con pollo y crema",
+      "detalle": "1 plato (400g)",
+      "cal": 620,
+      "macros": "P: 28g | G: 34g | C: 51g",
+    },
+    {
+      "nombre": "Sushi Philadelphia roll",
+      "detalle": "1 rollo (10 piezas)",
+      "cal": 310,
+      "macros": "P: 9g | G: 8g | C: 50g",
+    },
+    {
+      "nombre": "Boneless de pollo en salsa BBQ",
+      "detalle": "1 porción (200g)",
+      "cal": 510,
+      "macros": "P: 32g | G: 22g | C: 44g",
+    },
+    {
+      "nombre": "Ensalada César con pollo",
+      "detalle": "1 plato grande",
+      "cal": 390,
+      "macros": "P: 25g | G: 26g | C: 14g",
+    },
+    {
+      "nombre": "Refresco de cola regular",
+      "detalle": "1 lata (355ml)",
+      "cal": 140,
+      "macros": "P: 0g | G: 0g | C: 35g",
+    },
+    {
+      "nombre": "Papas fritas de bolsa / Sabritas",
+      "detalle": "1 bolsa chica (40g)",
+      "cal": 210,
+      "macros": "P: 2.5g | G: 13g | C: 21g",
     },
     {
       "nombre": "Cacahuate",
@@ -348,10 +586,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       alimentosAgregados.add(nuevoItem);
     });
 
-    // =========================================
-    // ENVIAR DATOS AL MAIN.DART
-    // =========================================
-
     String macros = alimento["macros"];
 
     double p = 0;
@@ -376,7 +610,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
       c = 0;
     }
 
-    // MANDAR CALORÍAS Y MACROS
     widget.onAlimentoAgregado(alimento["cal"].toDouble(), p, c, g);
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -416,7 +649,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
             ),
             const SizedBox(height: 20),
 
-            // 1. SELECTOR DE TIPO (DESAYUNO, ALMUERZO, ETC)
             _buildFloatingIsland(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -429,7 +661,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
               ),
             ),
 
-            // 2. BUSCADOR Y RESULTADOS
             _buildFloatingIsland(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -482,7 +713,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
               ),
             ),
 
-            // 3. RESUMEN DE HOY
             _buildFloatingIsland(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,7 +764,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
     );
   }
 
-  // --- WIDGETS AUXILIARES ---
   Widget _buildFloatingIsland({required Widget child}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -660,7 +889,6 @@ class _RegistroScreenState extends State<RegistroScreen> {
 
                 onPressed: () {
                   setState(() {
-                    // RESTAR CALORÍAS
                     widget.onAlimentoAgregado(-item["cal"].toDouble(), 0, 0, 0);
 
                     alimentosAgregados.remove(item);

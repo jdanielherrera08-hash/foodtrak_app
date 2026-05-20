@@ -1,7 +1,36 @@
 import 'package:flutter/material.dart';
+import '../gemini_service.dart'; // Los .. sirven para salir de la carpeta screens
 
-class DietasScreen extends StatelessWidget {
+class DietasScreen extends StatefulWidget {
   const DietasScreen({super.key});
+
+  @override
+  State<DietasScreen> createState() => _DietasScreenState();
+}
+
+class _DietasScreenState extends State<DietasScreen> {
+  // Variables obligatorias para el control de la IA
+  final GeminiService _geminiService = GeminiService();
+  final TextEditingController _aiController = TextEditingController();
+  String _respuestaIA = "";
+  bool _cargandoIA = false;
+
+  void _enviarPregunta() async {
+    if (_aiController.text.trim().isEmpty) return;
+
+    setState(() {
+      _cargandoIA = true;
+      _respuestaIA = ""; // Limpiamos la respuesta anterior mientras carga
+    });
+
+    String resultado = await _geminiService.consultarDieta(_aiController.text);
+
+    setState(() {
+      _respuestaIA = resultado;
+      _cargandoIA = false;
+      _aiController.clear(); // Limpia la barra de texto al finalizar
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +45,87 @@ class DietasScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
+          // ==================== APARTADO DE IA (HASTA ARRIBA) ====================
+          const Text(
+            "Pregúntale a la IA de FoodTrak",
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF5C6738),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _aiController,
+                  decoration: InputDecoration(
+                    hintText: "Ej: ¿Qué puedo cenar con 400 kcal?",
+                    filled: true,
+                    fillColor: Colors.white,
+                    hintStyle: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(color: Color(0xFF8A9A5B)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF8A9A5B),
+                        width: 2,
+                      ),
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              IconButton(
+                icon: _cargandoIA
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Color(0xFF8A9A5B),
+                        ),
+                      )
+                    : const Icon(Icons.auto_awesome, color: Color(0xFF8A9A5B)),
+                onPressed: _cargandoIA ? null : _enviarPregunta,
+              ),
+            ],
+          ),
+          if (_respuestaIA.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: const Color(0xFF8A9A5B).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: const Color(0xFF8A9A5B).withOpacity(0.3),
+                ),
+              ),
+              child: Text(
+                _respuestaIA,
+                style: const TextStyle(
+                  fontSize: 12.5,
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF3B441F),
+                ),
+              ),
+            ),
+          ],
+          const Divider(height: 32, thickness: 1, color: Color(0xFFD4CBB5)),
+
           // 1. DIETA BALANCEADA (AZUL)
           _buildPlanAlimentacion(
             context,
